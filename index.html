@@ -6,421 +6,224 @@
     <title>GroupRadar Pro — Радар для Rust</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0a0a0f; color: #fff; line-height: 1.6; }
         
-        body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: #0a0a0f;
-            color: #ffffff;
-            line-height: 1.6;
-        }
+        .header { background: rgba(10,10,15,0.95); backdrop-filter: blur(10px); position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid #1a1a2e; padding: 1rem 0; }
+        .nav { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: bold; color: #e94560; }
+        .nav-links a { color: #b9bbbe; text-decoration: none; margin-left: 2rem; font-size: 0.95rem; transition: color 0.3s; }
+        .nav-links a:hover { color: #fff; }
         
-        .header {
-            background: rgba(10, 10, 15, 0.95);
-            backdrop-filter: blur(10px);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid #1a1a2e;
-            padding: 1rem 0;
-        }
+        .hero { max-width: 1200px; margin: 6rem auto 4rem; padding: 0 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+        .hero h1 { font-size: 3rem; background: linear-gradient(135deg, #e94560, #5865f2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 1.5rem; }
+        .hero p { color: #b9bbbe; font-size: 1.2rem; margin-bottom: 2rem; }
         
-        .nav {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        .btn { display: inline-block; padding: 0.9rem 2.5rem; border-radius: 12px; font-weight: bold; text-decoration: none; font-size: 1.05rem; transition: all 0.3s; }
+        .btn-primary { background: #e94560; color: #fff; }
+        .btn-primary:hover { background: #c73b52; transform: translateY(-2px); box-shadow: 0 4px 20px rgba(233,69,96,0.3); }
+        .btn-telegram { background: #2AABEE; color: #fff; }
+        .btn-telegram:hover { background: #2299d6; transform: translateY(-2px); }
         
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #e94560;
-        }
+        .hero-visual { background: #1a1a2e; border-radius: 20px; padding: 2.5rem; text-align: center; border: 1px solid #2a2a3e; }
+        .hero-visual .radar-preview { font-size: 4rem; margin-bottom: 1rem; }
+        .hero-visual .player-line { margin: 0.5rem 0; font-size: 1.1rem; font-weight: bold; }
         
-        .nav-links a {
-            color: #b9bbbe;
-            text-decoration: none;
-            margin-left: 2rem;
-            transition: color 0.3s;
-            font-size: 0.95rem;
-        }
+        .section { max-width: 1200px; margin: 5rem auto; padding: 0 2rem; }
+        .section h2 { text-align: center; font-size: 2.5rem; margin-bottom: 3rem; }
         
-        .nav-links a:hover { color: #ffffff; }
+        .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+        .feature-card { background: #1a1a2e; padding: 2.5rem 2rem; border-radius: 15px; text-align: center; border: 1px solid #2a2a3e; transition: all 0.3s; }
+        .feature-card:hover { border-color: #e94560; transform: translateY(-5px); }
+        .feature-icon { font-size: 3.5rem; margin-bottom: 1rem; }
+        .feature-card h3 { font-size: 1.3rem; margin-bottom: 0.5rem; }
+        .feature-card p { color: #b9bbbe; font-size: 0.95rem; }
         
-        .btn {
-            display: inline-block;
-            padding: 0.8rem 2rem;
-            border-radius: 12px;
-            font-weight: bold;
-            text-decoration: none;
-            transition: all 0.3s;
-            cursor: pointer;
-            border: none;
-            font-size: 1rem;
-        }
+        .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+        .pricing-card { background: #1a1a2e; padding: 2.5rem 2rem; border-radius: 15px; text-align: center; border: 1px solid #2a2a3e; transition: all 0.3s; position: relative; }
+        .pricing-card:hover { transform: translateY(-5px); }
+        .pricing-card.popular { border: 2px solid #e94560; }
+        .popular-badge { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: #e94560; padding: 0.3rem 1.5rem; border-radius: 20px; font-size: 0.85rem; font-weight: bold; }
+        .pricing-card h3 { font-size: 1.4rem; margin-bottom: 0.5rem; }
+        .price { font-size: 2.8rem; font-weight: bold; color: #e94560; margin: 1rem 0; }
+        .period { color: #b9bbbe; margin-bottom: 1.5rem; }
+        .pricing-card ul { list-style: none; text-align: left; margin-bottom: 2rem; }
+        .pricing-card li { padding: 0.4rem 0; color: #b9bbbe; font-size: 0.95rem; }
         
-        .btn-primary {
-            background: #e94560;
-            color: #ffffff;
-        }
-        
-        .btn-primary:hover {
-            background: #c73b52;
-            transform: translateY(-2px);
-        }
-        
-        .btn-secondary {
-            background: #1a1a2e;
-            color: #ffffff;
-            border: 1px solid #2a2a3e;
-        }
-        
-        .btn-secondary:hover {
-            background: #2a2a3e;
-        }
-        
-        .hero {
-            max-width: 1200px;
-            margin: 6rem auto 4rem;
-            padding: 0 2rem;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-        
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #e94560, #5865f2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .hero p {
-            color: #b9bbbe;
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-        }
-        
-        .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
-        
-        .hero-visual {
-            background: #1a1a2e;
-            border-radius: 20px;
-            padding: 2rem;
-            text-align: center;
-            border: 1px solid #2a2a3e;
-        }
-        
-        .hero-visual .app-preview {
-            font-size: 5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .hero-visual p {
-            color: #43b581;
-            font-size: 0.9rem;
-        }
-        
-        .section {
-            max-width: 1200px;
-            margin: 4rem auto;
-            padding: 0 2rem;
-        }
-        
-        .section h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-        }
-        
-        .feature-card {
-            background: #1a1a2e;
-            padding: 2rem;
-            border-radius: 15px;
-            text-align: center;
-            transition: transform 0.3s;
-            border: 1px solid #2a2a3e;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-5px);
-            border-color: #e94560;
-        }
-        
-        .feature-icon { font-size: 3rem; margin-bottom: 1rem; }
-        .feature-card h3 { margin-bottom: 0.5rem; font-size: 1.2rem; }
-        .feature-card p { color: #b9bbbe; font-size: 0.9rem; }
-        
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-        }
-        
-        .pricing-card {
-            background: #1a1a2e;
-            padding: 2rem;
-            border-radius: 15px;
-            text-align: center;
-            border: 1px solid #2a2a3e;
-            position: relative;
-        }
-        
-        .pricing-card.popular {
-            border: 2px solid #e94560;
-        }
-        
-        .popular-badge {
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #e94560;
-            padding: 0.3rem 1.5rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
-        
-        .price {
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin: 1rem 0;
-        }
-        
-        .period { color: #b9bbbe; margin-bottom: 1.5rem; font-size: 0.9rem; }
-        
-        .pricing-card ul {
-            list-style: none;
-            margin-bottom: 2rem;
-            text-align: left;
-        }
-        
-        .pricing-card li {
-            padding: 0.5rem 0;
-            color: #b9bbbe;
-            font-size: 0.9rem;
-        }
-        
-        .steps {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-            text-align: center;
-        }
-        
-        .step-number {
-            width: 60px;
-            height: 60px;
-            background: #e94560;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin: 0 auto 1rem;
-        }
-        
-        .step h3 { margin-bottom: 0.5rem; }
+        .how-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; text-align: center; }
+        .step-num { width: 60px; height: 60px; background: #e94560; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; font-weight: bold; margin: 0 auto 1rem; }
+        .step h3 { margin-bottom: 0.3rem; }
         .step p { color: #b9bbbe; font-size: 0.9rem; }
         
-        .download-section {
-            text-align: center;
-            padding: 4rem 2rem;
-            background: #1a1a2e;
-            margin-top: 4rem;
-        }
+        .cta-section { text-align: center; padding: 5rem 2rem; background: linear-gradient(135deg, #1a1a2e, #0f0f23); }
+        .cta-section h2 { font-size: 2.5rem; margin-bottom: 1rem; }
+        .cta-section p { color: #b9bbbe; margin-bottom: 2rem; font-size: 1.2rem; }
         
-        .footer {
-            background: #0a0a0f;
-            text-align: center;
-            padding: 2rem;
-            border-top: 1px solid #1a1a2e;
-            font-size: 0.9rem;
-            color: #b9bbbe;
-        }
-        
-        .footer a {
-            color: #b9bbbe;
-            text-decoration: none;
-            margin: 0 1rem;
-        }
-        
-        .footer a:hover { color: #ffffff; }
+        .footer { text-align: center; padding: 2rem; border-top: 1px solid #1a1a2e; color: #888; font-size: 0.9rem; }
+        .footer a { color: #888; text-decoration: none; margin: 0 1rem; }
+        .footer a:hover { color: #fff; }
         
         @media (max-width: 768px) {
             .hero { grid-template-columns: 1fr; text-align: center; }
-            .hero-buttons { justify-content: center; }
-            .features-grid, .pricing-grid, .steps { grid-template-columns: 1fr; }
-            .nav-links { display: none; }
+            .features-grid, .pricing-grid, .how-steps { grid-template-columns: 1fr; }
             .hero h1 { font-size: 2rem; }
+            .nav-links { display: none; }
         }
     </style>
 </head>
 <body>
 
-    <header class="header">
-        <nav class="nav">
-            <div class="logo">🎯 GroupRadar</div>
-            <div class="nav-links">
-                <a href="#features">Возможности</a>
-                <a href="#pricing">Цены</a>
-                <a href="#how">Как работает</a>
-                <a href="#download">Скачать</a>
-            </div>
-        </nav>
-    </header>
-
-    <section class="hero">
-        <div>
-            <h1>Видь свою команду в Rust</h1>
-            <p>Радар показывает ники согруппников на расстоянии 600 метров. Работает на ЛЮБОМ сервере без прав администратора.</p>
-            <div class="hero-buttons">
-                <a href="#pricing" class="btn btn-primary">Купить от 499₽</a>
-                <a href="#download" class="btn btn-secondary">Попробовать бесплатно</a>
-            </div>
+<header class="header">
+    <nav class="nav">
+        <div class="logo">🎯 GroupRadar</div>
+        <div class="nav-links">
+            <a href="#features">Возможности</a>
+            <a href="#pricing">Цены</a>
+            <a href="#how">Как купить</a>
+            <a href="#contact">Контакты</a>
         </div>
-        <div class="hero-visual">
-            <div class="app-preview">🎯</div>
-            <p style="color:#00ff88;font-size:1.2rem;">🟢 Player1 — 45м</p>
-            <p style="color:#faa61a;font-size:1.2rem;">🟡 Player2 — 250м</p>
-            <p style="color:#ff4444;font-size:1.2rem;">🟠 Player3 — 580м</p>
-            <p style="color:#b9bbbe;margin-top:1rem;">Радар 600м • Чат • Группы</p>
-        </div>
-    </section>
+    </nav>
+</header>
 
-    <section id="features" class="section">
-        <h2>Возможности</h2>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">🎯</div>
-                <h3>Радар 600м</h3>
-                <p>Видишь ники всех согруппников в радиусе 4 квадратов</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">💬</div>
-                <h3>Встроенный чат</h3>
-                <p>Общайся с командой прямо в оверлее</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">👥</div>
-                <h3>Группы до 100 чел</h3>
-                <p>Создавай группы и приглашай по ID</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🔒</div>
-                <h3>Без бана</h3>
-                <p>Работает как оверлей, не трогает игру</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🌍</div>
-                <h3>Любая сеть</h3>
-                <p>Работает через интернет, не нужен один WiFi</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">⚡</div>
-                <h3>Авто-координаты</h3>
-                <p>Копируешь из игры — позиция обновляется</p>
-            </div>
-        </div>
-    </section>
+<section class="hero">
+    <div>
+        <h1>Видь свою команду в Rust</h1>
+        <p>Радар показывает ники согруппников на расстоянии <strong>600 метров</strong>. Работает на <strong>любом сервере</strong> без прав администратора. Никаких банов — просто оверлей.</p>
+        <a href="#pricing" class="btn btn-primary">Выбрать тариф</a>
+    </div>
+    <div class="hero-visual">
+        <div class="radar-preview">🎯</div>
+        <p class="player-line" style="color:#00ff88;">🟢 Alexandr — 45м</p>
+        <p class="player-line" style="color:#faa61a;">🟡 Player2 — 250м</p>
+        <p class="player-line" style="color:#ff4444;">🟠 Player3 — 580м</p>
+        <p style="color:#b9bbbe;margin-top:1rem;">Радар 600м • Чат • Группы до 100 чел</p>
+    </div>
+</section>
 
-    <section id="pricing" class="section">
-        <h2>Цены</h2>
-        <div class="pricing-grid">
-            <div class="pricing-card">
-                <h3>Стандарт</h3>
-                <div class="price">499₽</div>
-                <div class="period">навсегда</div>
-                <ul>
-                    <li>✅ Радар 600м</li>
-                    <li>✅ Группы до 25 чел</li>
-                    <li>✅ Чат</li>
-                    <li>✅ Обновления 1 год</li>
-                </ul>
-                <a href="#" class="btn btn-primary">Купить</a>
-            </div>
-            <div class="pricing-card popular">
-                <div class="popular-badge">ПОПУЛЯРНЫЙ</div>
-                <h3>Pro</h3>
-                <div class="price">999₽</div>
-                <div class="period">навсегда</div>
-                <ul>
-                    <li>✅ Всё из Стандарт</li>
-                    <li>✅ Группы до 100 чел</li>
-                    <li>✅ Приоритетный сервер</li>
-                    <li>✅ Обновления навсегда</li>
-                </ul>
-                <a href="#" class="btn btn-primary">Купить</a>
-            </div>
-            <div class="pricing-card">
-                <h3>Для кланов</h3>
-                <div class="price">2499₽</div>
-                <div class="period">навсегда</div>
-                <ul>
-                    <li>✅ Всё из Pro</li>
-                    <li>✅ 5 лицензий</li>
-                    <li>✅ Свой канал</li>
-                    <li>✅ VIP поддержка</li>
-                </ul>
-                <a href="#" class="btn btn-primary">Купить</a>
-            </div>
+<section id="features" class="section">
+    <h2>Возможности</h2>
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon">🎯</div>
+            <h3>Радар 600 метров</h3>
+            <p>Видишь ники всех согруппников в радиусе 4 квадратов</p>
         </div>
-    </section>
-
-    <section id="how" class="section">
-        <h2>Как начать</h2>
-        <div class="steps">
-            <div class="step">
-                <div class="step-number">1</div>
-                <h3>Покупаешь</h3>
-                <p>Выбираешь тариф и получаешь ключ на почту</p>
-            </div>
-            <div class="step">
-                <div class="step-number">2</div>
-                <h3>Скачиваешь</h3>
-                <p>Качаешь приложение с сайта</p>
-            </div>
-            <div class="step">
-                <div class="step-number">3</div>
-                <h3>Активируешь</h3>
-                <p>Вводишь ключ — готово!</p>
-            </div>
-            <div class="step">
-                <div class="step-number">4</div>
-                <h3>Играешь</h3>
-                <p>Видишь команду в радаре</p>
-            </div>
+        <div class="feature-card">
+            <div class="feature-icon">💬</div>
+            <h3>Встроенный чат</h3>
+            <p>Общайся с командой прямо в оверлее, не сворачивая игру</p>
         </div>
-    </section>
-
-    <section id="download" class="download-section">
-        <h2>Скачать бесплатно</h2>
-        <p style="color:#b9bbbe;margin-bottom:2rem;">Пробная версия на 3 дня</p>
-        <a href="#" class="btn btn-primary" style="font-size:1.1rem;padding:1rem 3rem;">⬇ Скачать для Windows</a>
-    </section>
-
-    <footer class="footer">
-        <p>© 2024 GroupRadar Pro</p>
-        <div style="margin-top:0.5rem;">
-            <a href="#">Политика</a>
-            <a href="#">Поддержка</a>
-            <a href="#">Контакты</a>
+        <div class="feature-card">
+            <div class="feature-icon">👥</div>
+            <h3>Группы до 100 чел</h3>
+            <p>Создавай группы как в Discord и приглашай по ID</p>
         </div>
-    </footer>
+        <div class="feature-card">
+            <div class="feature-icon">🔒</div>
+            <h3>Без риска бана</h3>
+            <p>Работает как оверлей. Не читает память игры. Не вмешивается в процесс.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🌍</div>
+            <h3>Любая сеть</h3>
+            <p>Играйте с друзьями из разных городов. Не нужен один Wi-Fi.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3>Авто-координаты</h3>
+            <p>Скопировал координаты в игре — приложение само обновило позицию.</p>
+        </div>
+    </div>
+</section>
+
+<section id="pricing" class="section">
+    <h2>Тарифы</h2>
+    <div class="pricing-grid">
+        <div class="pricing-card">
+            <h3>🚀 Старт</h3>
+            <div class="price">69₽</div>
+            <div class="period">/ месяц</div>
+            <ul>
+                <li>✅ Радар 600м</li>
+                <li>✅ Группы до 25 чел</li>
+                <li>✅ Чат группы</li>
+                <li>✅ Авто-координаты</li>
+                <li>✅ Обновления</li>
+            </ul>
+            <a href="#contact" class="btn btn-primary" style="width:100%;">Купить</a>
+        </div>
+        <div class="pricing-card popular">
+            <div class="popular-badge">🔥 ВЫБИРАЮТ</div>
+            <h3>💎 Pro</h3>
+            <div class="price">129₽</div>
+            <div class="period">/ месяц</div>
+            <ul>
+                <li>✅ Всё из Старт</li>
+                <li>✅ Группы до 100 чел</li>
+                <li>✅ Приоритетный сервер</li>
+                <li>✅ История чата</li>
+                <li>✅ Кастомный ник</li>
+            </ul>
+            <a href="#contact" class="btn btn-primary" style="width:100%;">Купить</a>
+        </div>
+        <div class="pricing-card">
+            <h3>👑 Для кланов</h3>
+            <div class="price">149₽</div>
+            <div class="period">/ месяц</div>
+            <ul>
+                <li>✅ Всё из Pro</li>
+                <li>✅ 5 лицензий</li>
+                <li>✅ Закрытый канал</li>
+                <li>✅ VIP поддержка</li>
+                <li>✅ Безлимит участников</li>
+            </ul>
+            <a href="#contact" class="btn btn-primary" style="width:100%;">Купить</a>
+        </div>
+    </div>
+</section>
+
+<section id="how" class="section">
+    <h2>Как купить</h2>
+    <div class="how-steps">
+        <div class="step">
+            <div class="step-num">1</div>
+            <h3>Выбери тариф</h3>
+            <p>Старт, Pro или Клан</p>
+        </div>
+        <div class="step">
+            <div class="step-num">2</div>
+            <h3>Напиши мне</h3>
+            <p>В Telegram: @Alexandr_2431</p>
+        </div>
+        <div class="step">
+            <div class="step-num">3</div>
+            <h3>Оплати</h3>
+            <p>На карту МИР (Сбер)</p>
+        </div>
+        <div class="step">
+            <div class="step-num">4</div>
+            <h3>Играй</h3>
+            <p>Получи ключ и видь команду!</p>
+        </div>
+    </div>
+</section>
+
+<section id="contact" class="cta-section">
+    <h2>Готов начать?</h2>
+    <p>Напиши мне в Telegram — я отвечу за 5 минут и вышлю ключ</p>
+    <a href="https://t.me/Alexandr_2431" class="btn btn-telegram" style="font-size:1.2rem;padding:1rem 3rem;">💬 @Alexandr_2431</a>
+    <p style="margin-top:1rem;color:#888;">Оплата на карту МИР (Сбербанк)</p>
+</section>
+
+<footer class="footer">
+    <p>© 2024 GroupRadar Pro</p>
+    <div style="margin-top:0.5rem;">
+        <a href="#features">Возможности</a>
+        <a href="#pricing">Цены</a>
+        <a href="https://t.me/Alexandr_2431">Поддержка</a>
+    </div>
+</footer>
 
 </body>
 </html>
+
+

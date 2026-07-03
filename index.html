@@ -21,11 +21,7 @@
             --radius: 16px;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -35,319 +31,101 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Контейнер */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 
-        /* Шапка */
         .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
-            background: rgba(8, 8, 12, 0.8);
-            backdrop-filter: blur(20px);
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            background: rgba(8, 8, 12, 0.8); backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
         }
+        .header .container { display: flex; align-items: center; justify-content: space-between; height: 60px; }
 
-        .header .container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 60px;
-        }
+        .logo { font-size: 20px; font-weight: 700; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+        .logo span { color: var(--accent); }
 
-        .logo {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--text);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .logo span {
-            color: var(--accent);
-        }
-
-        .nav a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 14px;
-            margin-left: 24px;
-            transition: color 0.2s;
-        }
-
-        .nav a:hover {
-            color: var(--text);
-        }
+        .nav a { color: var(--text-secondary); text-decoration: none; font-size: 14px; margin-left: 24px; transition: color 0.2s; }
+        .nav a:hover { color: var(--text); }
 
         .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 12px 24px;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 14px;
-            text-decoration: none;
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 12px 24px; border-radius: 10px; font-weight: 600; font-size: 14px;
+            text-decoration: none; transition: all 0.2s; cursor: pointer; border: none; gap: 8px;
+        }
+        .btn-primary { background: var(--gradient); color: #fff; }
+        .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 8px 25px rgba(88, 101, 242, 0.3); }
+        .btn-secondary { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
+        .btn-secondary:hover { background: var(--surface-hover); }
+        .btn-buy {
+            width: 100%; padding: 14px; font-size: 15px; font-weight: 700;
+            background: var(--gradient); color: #fff; border-radius: 10px;
+            text-decoration: none; display: inline-block; text-align: center;
             transition: all 0.2s;
-            cursor: pointer;
-            border: none;
-            gap: 8px;
         }
+        .btn-buy:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(88, 101, 242, 0.3); }
 
-        .btn-primary {
-            background: var(--gradient);
-            color: #fff;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 8px 25px rgba(88, 101, 242, 0.3);
-        }
-
-        .btn-secondary {
-            background: var(--surface);
-            color: var(--text);
-            border: 1px solid var(--border);
-        }
-
-        .btn-secondary:hover {
-            background: var(--surface-hover);
-        }
-
-        /* Герой */
-        .hero {
-            padding: 140px 0 80px;
-            text-align: center;
-        }
-
+        .hero { padding: 140px 0 80px; text-align: center; }
         .hero h1 {
-            font-size: 56px;
-            font-weight: 800;
-            letter-spacing: -1px;
-            margin-bottom: 20px;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            line-height: 1.1;
+            font-size: 56px; font-weight: 800; letter-spacing: -1px; margin-bottom: 20px;
+            background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.1;
         }
+        .hero p { font-size: 18px; color: var(--text-secondary); max-width: 600px; margin: 0 auto 32px; }
+        .hero-buttons { display: flex; gap: 12px; justify-content: center; }
 
-        .hero p {
-            font-size: 18px;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto 32px;
-        }
+        .section { padding: 80px 0; }
+        .section-title { font-size: 32px; font-weight: 700; text-align: center; margin-bottom: 48px; }
 
-        .hero-buttons {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-        }
-
-        /* Секция */
-        .section {
-            padding: 80px 0;
-        }
-
-        .section-title {
-            font-size: 32px;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 48px;
-        }
-
-        /* Сетка возможностей */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
+        .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
         .feature-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 28px;
-            transition: all 0.3s;
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 28px; transition: all 0.3s;
         }
+        .feature-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+        .feature-icon { font-size: 32px; margin-bottom: 16px; }
+        .feature-card h3 { font-size: 18px; margin-bottom: 8px; }
+        .feature-card p { color: var(--text-secondary); font-size: 14px; }
 
-        .feature-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-2px);
-        }
-
-        .feature-icon {
-            font-size: 32px;
-            margin-bottom: 16px;
-        }
-
-        .feature-card h3 {
-            font-size: 18px;
-            margin-bottom: 8px;
-        }
-
-        .feature-card p {
-            color: var(--text-secondary);
-            font-size: 14px;
-        }
-
-        /* Тарифы */
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
+        .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
         .pricing-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 32px 28px;
-            transition: all 0.3s;
-            position: relative;
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 32px 28px; transition: all 0.3s; position: relative;
         }
-
-        .pricing-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-4px);
-        }
-
+        .pricing-card:hover { border-color: var(--accent); transform: translateY(-4px); }
         .pricing-card.popular {
             border-color: var(--accent);
             background: linear-gradient(180deg, #12122a 0%, var(--surface) 100%);
         }
-
         .badge {
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--gradient);
-            color: #fff;
-            padding: 4px 16px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
+            position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+            background: var(--gradient); color: #fff; padding: 4px 16px; border-radius: 20px;
+            font-size: 12px; font-weight: 600;
         }
+        .plan-name { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+        .plan-price { font-size: 40px; font-weight: 800; color: var(--accent); margin-bottom: 4px; }
+        .plan-period { color: var(--text-secondary); font-size: 14px; margin-bottom: 24px; }
+        .plan-features { list-style: none; margin-bottom: 28px; }
+        .plan-features li { padding: 8px 0; color: var(--text-secondary); font-size: 14px; display: flex; align-items: center; gap: 8px; }
+        .plan-features li::before { content: "✓"; color: var(--green); font-weight: 700; }
 
-        .plan-name {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-
-        .plan-price {
-            font-size: 40px;
-            font-weight: 800;
-            color: var(--accent);
-            margin-bottom: 4px;
-        }
-
-        .plan-period {
-            color: var(--text-secondary);
-            font-size: 14px;
-            margin-bottom: 24px;
-        }
-
-        .plan-features {
-            list-style: none;
-            margin-bottom: 28px;
-        }
-
-        .plan-features li {
-            padding: 8px 0;
-            color: var(--text-secondary);
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .plan-features li::before {
-            content: "✓";
-            color: var(--green);
-            font-weight: 700;
-        }
-
-        /* Как купить */
-        .steps {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 24px;
-            text-align: center;
-        }
-
+        .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; text-align: center; }
         .step-num {
-            width: 50px;
-            height: 50px;
-            background: var(--gradient);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 20px;
+            width: 50px; height: 50px; background: var(--gradient); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 20px;
             margin: 0 auto 16px;
         }
+        .step h3 { font-size: 16px; margin-bottom: 4px; }
+        .step p { color: var(--text-secondary); font-size: 14px; }
 
-        .step h3 {
-            font-size: 16px;
-            margin-bottom: 4px;
-        }
-
-        .step p {
-            color: var(--text-secondary);
-            font-size: 14px;
-        }
-
-        /* CTA */
         .cta {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 48px;
-            text-align: center;
-            margin: 60px 0;
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 48px; text-align: center; margin: 60px 0;
         }
+        .cta h2 { font-size: 28px; margin-bottom: 12px; }
+        .cta p { color: var(--text-secondary); margin-bottom: 24px; }
 
-        .cta h2 {
-            font-size: 28px;
-            margin-bottom: 12px;
-        }
+        .footer { border-top: 1px solid var(--border); padding: 32px 0; text-align: center; color: var(--text-secondary); font-size: 14px; }
+        .footer a { color: var(--text-secondary); text-decoration: none; margin: 0 12px; }
+        .footer a:hover { color: var(--text); }
 
-        .cta p {
-            color: var(--text-secondary);
-            margin-bottom: 24px;
-        }
-
-        /* Футер */
-        .footer {
-            border-top: 1px solid var(--border);
-            padding: 32px 0;
-            text-align: center;
-            color: var(--text-secondary);
-            font-size: 14px;
-        }
-
-        .footer a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            margin: 0 12px;
-        }
-
-        .footer a:hover {
-            color: var(--text);
-        }
-
-        /* Мобильная адаптация */
         @media (max-width: 768px) {
             .hero h1 { font-size: 36px; }
             .features-grid, .pricing-grid, .steps { grid-template-columns: 1fr; }
@@ -422,6 +200,7 @@
     <div class="container">
         <h2 class="section-title">Тарифы</h2>
         <div class="pricing-grid">
+
             <!-- Старт -->
             <div class="pricing-card">
                 <div class="plan-name">🚀 Старт</div>
@@ -432,7 +211,7 @@
                     <li>Группы до 25 чел</li>
                     <li>Координаты из игры</li>
                 </ul>
-                <a href="#contact" class="btn btn-secondary" style="width:100%;">Купить</a>
+                <a href="https://hipolink.net/radar/services/httpsgroupradar13netlifyapp" class="btn-buy" target="_blank">Оформить</a>
             </div>
 
             <!-- Pro -->
@@ -448,7 +227,7 @@
                     <li>Анти-рейд защита</li>
                     <li>Встроенный чат</li>
                 </ul>
-                <a href="#contact" class="btn btn-primary" style="width:100%;">Купить</a>
+                <a href="https://hipolink.net/radar/services/httpsgroupradar13netlif" class="btn-buy" target="_blank">Оформить</a>
             </div>
 
             <!-- Клан -->
@@ -463,8 +242,9 @@
                     <li>Смена тем</li>
                     <li>VIP поддержка</li>
                 </ul>
-                <a href="#contact" class="btn btn-secondary" style="width:100%;">Купить</a>
+                <a href="https://hipolink.net/radar/services/absolyutno-unikalnyy-radar-pomoshchnik-rust-klan-versiya" class="btn-buy" target="_blank">Оформить</a>
             </div>
+
         </div>
     </div>
 </section>
@@ -480,13 +260,13 @@
             </div>
             <div class="step">
                 <div class="step-num">2</div>
-                <h3>Напиши мне</h3>
-                <p>В Telegram для оплаты</p>
+                <h3>Оплати</h3>
+                <p>Через Hipolink (карты РФ)</p>
             </div>
             <div class="step">
                 <div class="step-num">3</div>
                 <h3>Получи ключ</h3>
-                <p>И скачай приложение</p>
+                <p>В Telegram за 5 минут</p>
             </div>
             <div class="step">
                 <div class="step-num">4</div>
@@ -500,7 +280,7 @@
 <section id="contact" class="cta">
     <div class="container">
         <h2>Готов начать?</h2>
-        <p>Напиши мне в Telegram — отвечаю за 5 минут</p>
+        <p>Напиши мне в Telegram — отвечаю за 5 минут и выдаю ключ</p>
         <a href="https://t.me/Alexandr_2431" class="btn btn-primary" style="font-size:16px;padding:14px 32px;">
             💬 @Alexandr_2431
         </a>
